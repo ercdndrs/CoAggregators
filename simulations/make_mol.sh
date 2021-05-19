@@ -10,6 +10,8 @@
 # 2. Ambertools - antechamber (assign unique residue name, change atom type into gaff format)
 # 3. Ambertools - parmchk2 (check and add additional atom/bond parameters)
 ###
+echo $CONDA_PREFIX"/share/openbabel"
+export BABEL_DATADIR=$CONDA_PREFIX"/share/openbabel"
 
 while read name smiles; do
 # Assign random residue name to molecules of interest in order to avoid ovrlapped parameters with existing residues.
@@ -26,13 +28,14 @@ else
 fi
 
 # Assure that atom types are recognized as gaff atom type; residue name is corrected.
-antechamber -i $name.mol2 -fi mol2 -o $name.mol2 -fo mol2 -rn $resname
+antechamber.bat -i $name.mol2 -fi mol2 -o $name.mol2 -fo mol2 -rn $resname
 
 # Add default value of parameters if certain bonds/atoms/angles are anomalies.
-parmchk2 -i $name.mol2 -f mol2 -o $name.frcmod 
+parmchk2.bat -i $name.mol2 -f mol2 -o $name.frcmod 
 
 # if a molecules fails to generate, append in a buffer file.
 if [ ! -s "$name.frcmod" ]; then
 echo $name >> FAILED.txt
 fi
 done < $1
+read -p "Press any key to end ..."

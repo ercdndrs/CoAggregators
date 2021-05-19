@@ -1,0 +1,6 @@
+*.mol2
+FAILED.txt
+*.frcmod
+*.AC
+*.AC0
+*.INF
