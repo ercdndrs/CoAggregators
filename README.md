@@ -57,6 +57,8 @@ make
 export PATH="/home/user/packmol-20.010:$PATH"
 ```
 
+Note for Windows users: `kyleabeauchamp ambermini` is Linux-only so you can use `omnia ambermini` instead. Additionally, `openbabel openbabel` is now deprecated so you can use `conda-forge openbabel` instead.
+
 
 # Descriptions of folders
 
