@@ -20,6 +20,7 @@ resname=Z$id
 
 # Systematically search & create for the optimal conformation, but if the process goes over 2hrs (7200s), abort and run weighted search.
 # Timeout duration can be adapted from the original 7200 sec
+echo "Starting to process $name."
 if timeout 7200 obabel -:"$smiles $name" -omol2 --conformer --gen3d --systematic -h --ff GAFF --partialcharge eem -O ${name}.mol2; then 
   echo "$name - Systematic!"
 else
@@ -37,5 +38,6 @@ parmchk2.bat -i $name.mol2 -f mol2 -o $name.frcmod
 if [ ! -s "$name.frcmod" ]; then
 echo $name >> FAILED.txt
 fi
+echo "Finished processing $name.\n"
 done < $1
 read -p "Press any key to end ..."
